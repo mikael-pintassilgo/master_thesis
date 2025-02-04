@@ -1,0 +1,2 @@
+python my_demo_recognition.py
+python my_demo_recognition.py --config=configs/train_matrn.yaml --phase test --image_only
