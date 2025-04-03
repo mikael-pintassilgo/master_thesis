@@ -5,7 +5,7 @@ pip install opencv-python
 pip install scikit-image
 pip install scipy
 
-python test.py --trained_model='models/craft_mlt_25k.pth' --test_folder='figures' --cuda=False
+python _1_detection.py --trained_model='models/craft_mlt_25k.pth' --test_folder='figures' --cuda=False
 
 
 ## CRAFT: Character-Region Awareness For Text detection

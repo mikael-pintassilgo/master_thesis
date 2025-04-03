@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 from minisom import MiniSom
 
 # Code
-img = cv2.imread("result/res_the_big_con_1.jpg")
-file = open("result/res_the_big_con_1.txt", "r")
+img = cv2.imread("result/res_img_to_translate.jpg")
+file = open("result/res_img_to_translate.txt", "r")
 
 metric_features = ['ltx','lty','rtx','rty','tdx','rdy','ldx','ldy','cx','cy']
 df = pd.DataFrame(columns=metric_features)
