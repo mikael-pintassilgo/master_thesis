@@ -65,7 +65,7 @@ def load(model, file, device=None, strict=True):
     model.load_state_dict(state, strict=strict)
     return model
 
-def main():
+def recognition():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', type=str, default='configs/train_matrn.yaml',
                         help='path to config file')
@@ -103,13 +103,22 @@ def main():
         paths = glob.glob(os.path.expanduser(args.input))
         assert paths, "The input path(s) was not found"
     paths = sorted(paths)
+    data_to_return = {}
     for path in tqdm.tqdm(paths):
         img = PIL.Image.open(path).convert('RGB')
         img = preprocess(img, config.dataset_image_width, config.dataset_image_height)
         img = img.to(device)
         res = model(img, None)
         pt_text, _, __ = postprocess(res, charset, config.model_eval)
+        
+        key = path.split('/')[-1].split('\\')[-1].split('.')[0]
+        print(type(key))
+        print(key)
+        data_to_return[key] = pt_text[0]
+        
         logging.info(f'{path}: {pt_text[0]}')
+    #print(data_to_return)
+    return data_to_return
 
 if __name__ == '__main__':
-    main()
+    recognition()
