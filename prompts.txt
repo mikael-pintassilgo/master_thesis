@@ -1,0 +1,22 @@
+I have a text_blocks object of type dict.
+It contains information about the block name, this is the key, and the value is an array that contains the coordinates of the text block in the image.
+The coordinate information has the following structure:
+The cell with index 0 contains the x-coordinate of the upper left corner.
+The cell with index 1 contains the y-coordinate of the upper left corner.
+The cell with index 2 contains the x-coordinate of the upper right corner.
+The cell with index 3 contains the y-coordinate of the upper right corner.
+The cell with index 4 contains the x-coordinate of the lower right corner.
+The cell with index 5 contains the y-coordinate of the lower right corner.
+The cell with index 6 contains the x-coordinate of the lower left corner.
+The cell with index 7 contains the y-coordinate of the lower left corner.
+
+In the text_recognititon object of the dict type, the key is the block name, and the value is the text recognition result.
+
+I need code that will do the following:
+1. Create a two-dimensional array text_pairs with the first dimension equal to the dimension of text_blocks. And the second dimension will be equal to 4.
+2. Each key value from text_blocks must be placed in the first column of the array.
+
+3. For each element of text_blocks, you need to calculate the average width of the text character that is in it. To do this, subtract the x-coordinate of the upper left corner from the x-coordinate of the upper right corner. The resulting value must be divided by the number of characters in the text that is in the text_recognititon object for a similar key. The resulting value must be saved in the second column of the text_pairs array.
+3. For each key, you need to search for a pair in text_blocks. If the pair is on the right, then place the key of the found pair in the fourth column of the array. If the pair is on the left, then place the key of the found pair in the third column of the array. A pair is a text block that is on the left or right at a distance of no more than 1.5 sizes of the average width of the character in the block.
+4. Create a two-dimensional array text_sequences with the first size equal to the size of text_blocks. And the second size will be equal to 2.
+5. In each element text_sequences, in the first column, you need to place an array of text blocks that follow each other on the same horizontal line. In the second column, you need to put in the same order the translations of all the words that correspond to these text blocks.

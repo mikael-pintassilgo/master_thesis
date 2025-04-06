@@ -16,7 +16,7 @@ def crop_text_blocks():
     img = cv2.imread("result/res_img_to_translate.jpg")
     file = open("result/res_img_to_translate.txt", "r")
 
-    metric_features = ['ltx','lty','rtx','rty','tdx','rdy','ldx','ldy','cx','cy']
+    metric_features = ['ltx','lty','rtx','rty','rdx','rdy','ldx','ldy','cx','cy']
     df = pd.DataFrame(columns=metric_features)
 
     data_to_return = {}
