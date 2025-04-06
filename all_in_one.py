@@ -230,7 +230,7 @@ if __name__ == '__main__':
     create_mask_from_coordinates(
         merged_text=merged_text,
         input_image_path="figures/img_to_translate.jpg",
-        output_image_path="result/img_to_translate_fo_text_erase.jpg"
+        output_image_path="result/img_to_translate_for_text_erase.jpg"
     )
     
     # Clean up files after processing    
