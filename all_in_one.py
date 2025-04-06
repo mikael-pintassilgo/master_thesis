@@ -178,7 +178,7 @@ def create_mask_from_coordinates(merged_text, input_image_path, output_image_pat
     # Iterate through merged_text and draw white quadrangles on the mask
     for row in merged_text:
         coords = row[0]  # Extract coordinates
-        if len(coords) != 8:
+        if len(coords) < 8:
             print(f"Error: Invalid coordinates {coords}")
             continue
 
@@ -196,6 +196,101 @@ def create_mask_from_coordinates(merged_text, input_image_path, output_image_pat
     # Save the resulting mask
     cv2.imwrite(output_image_path, mask)
     print(f"Mask image saved at {output_image_path}")
+
+def draw_text_on_image(merged_text, input_image_path, output_image_path):
+    # Load the image
+    image = cv2.imread(input_image_path)
+    if image is None:
+        print(f"Error: Unable to load image at {input_image_path}")
+        return
+
+    # Iterate through merged_text and draw text in quadrangular areas
+    for row in merged_text:
+        coords = row[0]  # Extract coordinates
+        text = row[1]    # Extract text
+        if len(coords) < 8:
+            print(f"Error: Invalid coordinates {coords}")
+            continue
+
+        # Extract points
+        points = np.array([
+            [coords[0], coords[1]],  # Top-left
+            [coords[2], coords[3]],  # Top-right
+            [coords[4], coords[5]],  # Bottom-right
+            [coords[6], coords[7]]   # Bottom-left
+        ], dtype=np.int32)
+
+        # Calculate the bounding box for the quadrangle
+        x_min = min(points[:, 0])
+        y_min = min(points[:, 1])
+        x_max = max(points[:, 0])
+        y_max = max(points[:, 1])
+
+        # Calculate font scale based on the height of the bounding box
+        box_height = y_max - y_min
+        font_scale = box_height / 30.0  # Adjust the divisor for better scaling
+        font_thickness = max(1, int(font_scale))
+
+        # Calculate text size and position
+        text_size = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)[0]
+        text_x = x_min
+        text_y = y_min + text_size[1]
+
+        # Draw the text on the image
+        cv2.putText(image, text, (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 0, 255), font_thickness)
+
+    # Save the resulting image
+    cv2.imwrite(output_image_path, image)
+    print(f"Image with text saved at {output_image_path}")
+
+def draw_text_in_quadrangles(merged_text, input_image_path, output_image_path):
+    # Load the image
+    image = cv2.imread(input_image_path)
+    if image is None:
+        print(f"Error: Unable to load image at {input_image_path}")
+        return
+
+    # Iterate through merged_text and draw text in quadrangular areas
+    for row in merged_text:
+        coords = row[0]  # Extract coordinates
+        text = row[1]    # Extract text
+        if len(coords) != 8:
+            print(f"Error: Invalid coordinates {coords}")
+            continue
+
+        # Extract points
+        points = np.array([
+            [coords[0], coords[1]],  # Top-left
+            [coords[2], coords[3]],  # Top-right
+            [coords[4], coords[5]],  # Bottom-right
+            [coords[6], coords[7]]   # Bottom-left
+        ], dtype=np.int32)
+
+        # Draw the quadrangle as a filled white polygon
+        cv2.fillPoly(image, [points], color=(255, 255, 255))
+
+        # Calculate the bounding box for the quadrangle
+        x_min = min(points[:, 0])
+        y_min = min(points[:, 1])
+        x_max = max(points[:, 0])
+        y_max = max(points[:, 1])
+
+        # Calculate font scale based on the height of the bounding box
+        box_height = y_max - y_min
+        font_scale = box_height / 30.0  # Adjust the divisor for better scaling
+        font_thickness = max(1, int(font_scale))
+
+        # Calculate text size and position
+        text_size = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)[0]
+        text_x = x_min + (x_max - x_min - text_size[0]) // 2
+        text_y = y_min + (y_max - y_min + text_size[1]) // 2
+
+        # Draw the text on the image
+        cv2.putText(image, text, (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 0, 0), font_thickness)
+
+    # Save the resulting image
+    cv2.imwrite(output_image_path, image)
+    print(f"Image with text in quadrangles saved at {output_image_path}")
 
 if __name__ == '__main__':
     detect_text(args)
@@ -231,6 +326,12 @@ if __name__ == '__main__':
         merged_text=merged_text,
         input_image_path="figures/img_to_translate.jpg",
         output_image_path="result/img_to_translate_for_text_erase.jpg"
+    )
+    
+    draw_text_in_quadrangles(
+        merged_text=merged_text,
+        input_image_path="figures/img_to_translate.jpg",
+        output_image_path="result/img_to_translate_with_text.jpg"
     )
     
     # Clean up files after processing    

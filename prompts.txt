@@ -20,3 +20,57 @@ I need code that will do the following:
 3. For each key, you need to search for a pair in text_blocks. If the pair is on the right, then place the key of the found pair in the fourth column of the array. If the pair is on the left, then place the key of the found pair in the third column of the array. A pair is a text block that is on the left or right at a distance of no more than 1.5 sizes of the average width of the character in the block.
 4. Create a two-dimensional array text_sequences with the first size equal to the size of text_blocks. And the second size will be equal to 2.
 5. In each element text_sequences, in the first column, you need to place an array of text blocks that follow each other on the same horizontal line. In the second column, you need to put in the same order the translations of all the words that correspond to these text blocks.
+
+Prompt 3:
+I have a merged_text type numpy array.
+In the first column is a set of coordinates.
+The coordinate information has the following structure:
+The cell with index 0 contains the x-coordinate of the upper left corner.
+The cell with index 1 contains the y-coordinate of the upper left corner.
+The cell with index 2 contains the x-coordinate of the upper right corner.
+The cell with index 3 contains the y-coordinate of the upper right corner.
+The cell with index 4 contains the x-coordinate of the lower right corner.
+The cell with index 5 contains the y-coordinate of the lower right corner.
+The cell with index 6 contains the x-coordinate of the lower left corner.
+The cell with index 7 contains the y-coordinate of the lower left corner.
+In the figures directory there is a picture named "img_to_translate.jpg".
+Draw quadrangular frames on this picture in accordance with the coordinates and save the result in the results directory named "img_to_translate_features.jpg".
+
+Prompt 4:
+I have a numpy array. Its name is merged_text.
+The first column contains a set of coordinates.
+The coordinate information has the following structure:
+The cell with index 0 contains the x-coordinate of the upper left corner.
+The cell with index 1 contains the y-coordinate of the upper left corner.
+The cell with index 2 contains the x-coordinate of the upper right corner.
+The cell with index 3 contains the y-coordinate of the upper right corner.
+The cell with index 4 contains the x-coordinate of the lower right corner.
+The cell with index 5 contains the y-coordinate of the lower right corner.
+The cell with index 6 contains the x-coordinate of the lower left corner.
+The cell with index 7 contains the y-coordinate of the lower left corner.
+
+There is an image named "img_to_translate.jpg" in the figures directory.
+Create a new image the same size as the original image.
+The whole image should be black. On this image, draw quadrangular areas according to the coordinates, they should be white.
+Save the result in the results directory with the name "img_to_translate_fo_text_erase.jpg".
+
+Prompt 5:
+I have a numpy array named merged_text.
+The first column contains a set of coordinates.
+The coordinate information has the following structure:
+The cell with index 0 contains the x-coordinate of the upper left corner.
+The cell with index 1 contains the y-coordinate of the upper left corner.
+The cell with index 2 contains the x-coordinate of the upper right corner.
+The cell with index 3 contains the y-coordinate of the upper right corner.
+The cell with index 4 contains the x-coordinate of the lower right corner.
+The cell with index 5 contains the y-coordinate of the lower right corner.
+The cell with index 6 contains the x-coordinate of the lower left corner.
+The cell with index 7 contains the y-coordinate of the lower left corner.
+
+The second column contains the text.
+
+In the figures directory there is a picture named "img_to_translate.jpg".
+Draw quadrangular areas on this picture according to the coordinates, they should be white.
+In these areas output the text from the second column of the array so that the text size corresponds to the size of the area.
+Place text in the center of the areas.
+Save the result in the results directory with the name "img_to_translate_with_text.jpg".
