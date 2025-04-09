@@ -17,7 +17,7 @@ def get_model(config):
     module_name, class_name = '.'.join(names[:-1]), names[-1]
     cls = getattr(importlib.import_module(module_name), class_name)
     model = cls(config)
-    logging.info(model)
+    #logging.info(model)
     model = model.eval()
     return model
 
@@ -89,7 +89,7 @@ def recognition():
 
     Logger.init(config.global_workdir, config.global_name, config.global_phase)
     Logger.enable_file()
-    logging.info(config)
+    #logging.info(config)
 
     logging.info('Construct model.')
     model = get_model(config).to(device)

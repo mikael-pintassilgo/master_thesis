@@ -2,6 +2,7 @@ from _1_detection import detect_text
 from _1_detection import str2bool
 from _2_crop_text_blocks import crop_text_blocks
 from _3_recognition import recognition
+from _4_translate import translate_text
 import argparse
 import os
 import numpy as np
@@ -253,7 +254,7 @@ def draw_text_in_quadrangles(merged_text, input_image_path, output_image_path):
     # Iterate through merged_text and draw text in quadrangular areas
     for row in merged_text:
         coords = row[0]  # Extract coordinates
-        text = row[1]    # Extract text
+        text = row[2]    # Extract text
         if len(coords) != 8:
             print(f"Error: Invalid coordinates {coords}")
             continue
@@ -292,6 +293,16 @@ def draw_text_in_quadrangles(merged_text, input_image_path, output_image_path):
     cv2.imwrite(output_image_path, image)
     print(f"Image with text in quadrangles saved at {output_image_path}")
 
+def translate_all_siquences(merged_text):
+    merged_text_with_translation = []
+    #merged_text_with_translation = merged_text.copy()
+    for row in merged_text:
+        text_to_translate = row[1]  # Extract the text to translate
+        text_after_translation = translate_text(text_to_translate)  # Translate the text
+        merged_text_with_translation.append([row[0], row[1], text_after_translation])
+        print(text_after_translation)
+    return merged_text_with_translation
+
 if __name__ == '__main__':
     detect_text(args)
     text_blocks = crop_text_blocks()
@@ -316,6 +327,9 @@ if __name__ == '__main__':
     print(merged_text)
     print("*" * 50)
     
+    merged_text = translate_all_siquences(merged_text)
+    
+    """
     draw_quadrangles_on_image(
         merged_text=merged_text,
         input_image_path="figures/img_to_translate.jpg",
@@ -328,6 +342,7 @@ if __name__ == '__main__':
         output_image_path="result/img_to_translate_for_text_erase.jpg"
     )
     
+    """
     draw_text_in_quadrangles(
         merged_text=merged_text,
         input_image_path="figures/img_to_translate.jpg",
