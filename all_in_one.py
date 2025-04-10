@@ -8,6 +8,9 @@ import os
 import numpy as np
 import cv2
 import pandas as pd
+import pygame
+import sys
+from PIL import Image, ImageDraw, ImageFont
 
 parser = argparse.ArgumentParser(description='CRAFT Text Detection')
 parser.add_argument('--trained_model', default='models/craft_mlt_25k.pth', type=str, help='pretrained model')
@@ -245,11 +248,16 @@ def draw_text_on_image(merged_text, input_image_path, output_image_path):
     print(f"Image with text saved at {output_image_path}")
 
 def draw_text_in_quadrangles(merged_text, input_image_path, output_image_path):
-    # Load the image
-    image = cv2.imread(input_image_path)
-    if image is None:
-        print(f"Error: Unable to load image at {input_image_path}")
+    # Load the image using PIL
+    image = Image.open(input_image_path)
+    draw = ImageDraw.Draw(image)
+
+    # Set font to support Unicode characters
+    font_path = "C:/Windows/Fonts/arial.ttf"  # Update with a valid font path
+    if not os.path.exists(font_path):
+        print(f"Error: Font file not found at {font_path}")
         return
+    font = ImageFont.truetype(font_path, size=20)  # Default size, will be adjusted dynamically
 
     # Iterate through merged_text and draw text in quadrangular areas
     for row in merged_text:
@@ -268,7 +276,7 @@ def draw_text_in_quadrangles(merged_text, input_image_path, output_image_path):
         ], dtype=np.int32)
 
         # Draw the quadrangle as a filled white polygon
-        cv2.fillPoly(image, [points], color=(255, 255, 255))
+        draw.polygon([tuple(point) for point in points], fill=(255, 255, 255))
 
         # Calculate the bounding box for the quadrangle
         x_min = min(points[:, 0])
@@ -276,21 +284,22 @@ def draw_text_in_quadrangles(merged_text, input_image_path, output_image_path):
         x_max = max(points[:, 0])
         y_max = max(points[:, 1])
 
-        # Calculate font scale based on the height of the bounding box
+        # Calculate font size based on the height of the bounding box
         box_height = y_max - y_min
-        font_scale = box_height / 30.0  # Adjust the divisor for better scaling
-        font_thickness = max(1, int(font_scale))
+        font_size = max(10, box_height // 2)  # Adjust font size dynamically
+        font = ImageFont.truetype(font_path, size=font_size)
 
         # Calculate text size and position
-        text_size = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)[0]
-        text_x = x_min + (x_max - x_min - text_size[0]) // 2
-        text_y = y_min + (y_max - y_min + text_size[1]) // 2
+        width = draw.textlength(text, font=font)
+        height = font_size;
+        text_x = x_min + (x_max - x_min - width) // 2
+        text_y = y_min + (y_max - y_min - height) // 2
 
         # Draw the text on the image
-        cv2.putText(image, text, (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0, 0, 0), font_thickness)
+        draw.text((text_x, text_y), text, font=font, fill=(0, 0, 0))
 
     # Save the resulting image
-    cv2.imwrite(output_image_path, image)
+    image.save(output_image_path)
     print(f"Image with text in quadrangles saved at {output_image_path}")
 
 def translate_all_siquences(merged_text):
@@ -329,7 +338,6 @@ if __name__ == '__main__':
     
     merged_text = translate_all_siquences(merged_text)
     
-    """
     draw_quadrangles_on_image(
         merged_text=merged_text,
         input_image_path="figures/img_to_translate.jpg",
@@ -342,7 +350,6 @@ if __name__ == '__main__':
         output_image_path="result/img_to_translate_for_text_erase.jpg"
     )
     
-    """
     draw_text_in_quadrangles(
         merged_text=merged_text,
         input_image_path="figures/img_to_translate.jpg",

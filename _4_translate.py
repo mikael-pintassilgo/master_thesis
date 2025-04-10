@@ -16,5 +16,6 @@ def translate_text(text):
     transletion = translator(text)
     return transletion[0]['translation_text']
 
-results = translator("(What does it mean, Mary?) (Why do you want to leave from me?) (I want to know.)")
-print(results)  # [{'translation_text': 'у меня немного простуды и кашель'}]
+if __name__ == '__main__':
+    results = translator("(What does it mean, Mary?) (Why do you want to leave from me?) (I want to know.)")
+    print(results)  # [{'translation_text': 'у меня немного простуды и кашель'}]
