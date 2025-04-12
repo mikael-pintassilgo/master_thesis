@@ -3,14 +3,18 @@ from _1_detection import str2bool
 from _2_crop_text_blocks import crop_text_blocks
 from _3_recognition import recognition
 from _4_translate import translate_text
+
 import argparse
 import os
 import numpy as np
 import cv2
 import pandas as pd
-import pygame
-import sys
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageTk
+import pyautogui
+import pynput
+import keyboard
+import pygetwindow as gw
+import tkinter as tk
 
 parser = argparse.ArgumentParser(description='CRAFT Text Detection')
 parser.add_argument('--trained_model', default='models/craft_mlt_25k.pth', type=str, help='pretrained model')
@@ -312,7 +316,114 @@ def translate_all_siquences(merged_text):
         print(text_after_translation)
     return merged_text_with_translation
 
+def take_screenshot_on_press_key(output_folder, file_name):
+
+    # Ensure the folder exists
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    def take_screenshot():
+        
+        active_window = gw.getActiveWindow()
+        if active_window:
+            # Get the window's position and size
+            left, top, right, bottom = active_window.left, active_window.top, active_window.right, active_window.bottom
+            width, height = right - left, bottom - top
+            
+            # Take a screenshot of the active window
+            screenshot = pyautogui.screenshot(region=(left, top, width, height))
+
+            screenshot.save(os.path.join(output_folder, file_name))
+            print(f"Screenshot saved as {file_name} in {output_folder}")
+        else:
+            print("No active window found.")
+
+    # Set up the event listener for the mouse scroll button
+    keyboard.add_hotkey('ctrl+1', take_screenshot)
+
+    print("Press the mouse scroll button to take a screenshot.")
+    keyboard.wait('esc') # Keep the script running until 'esc' is pressed
+    
+def _take_screenshot_on_press_key(output_folder, file_name):
+    
+    def on_press(key):
+        try:
+            # Check if the combination Ctrl+Q is pressed
+            if key == pynput.keyboard.Key.ctrl_l or key == pynput.keyboard.Key.ctrl_r:
+                on_press.ctrl_pressed = True
+            elif key == pynput.keyboard.KeyCode.from_char('1') and on_press.ctrl_pressed:
+                # Take a screenshot
+                screenshot = pyautogui.screenshot()
+                # Ensure the output folder exists
+                os.makedirs(output_folder, exist_ok=True)
+                # Save the screenshot
+                screenshot_path = os.path.join(output_folder, file_name)
+                screenshot.save(screenshot_path)
+                print(f"Screenshot saved at {screenshot_path}")
+                return False  # Stop the listener after taking the screenshot
+        except AttributeError:
+            pass
+
+    def on_release(key):
+        # Reset the Ctrl key state when released
+        if key == pynput.keyboard.Key.ctrl_l or key == pynput.keyboard.Key.ctrl_r:
+            on_press.ctrl_pressed = False
+
+    # Initialize the Ctrl key state
+    on_press.ctrl_pressed = False
+
+    # Start listening for keyboard events
+    with pynput.keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+        print("Waiting for Ctrl+1 key combination...")
+        listener.join()
+
+def show_translation(output_folder, file_name):
+    
+    file_path = os.path.join(output_folder, file_name)
+    
+    def on_click(event):
+        # Ensure the image exists
+        if not os.path.exists(file_path):
+            print(f"Image {file_name} not found in {output_folder}")
+            exit()
+        
+        # Create a tkinter window
+        root = tk.Tk()
+        
+        # Delete the image file
+        os.remove(file_path)
+        print(f"Image {file_name} deleted from {output_folder}")
+    
+        # Close the tkinter window
+        root.destroy()
+        
+        # Simulate a click on the current application
+        pyautogui.click()
+                
+    # Create a tkinter window
+    root = tk.Tk()
+    root.title("Image Viewer")
+
+    # Load the image
+    image = Image.open(file_path)
+    photo = ImageTk.PhotoImage(image)
+
+    # Create a label to display the image
+    label = tk.Label(root, image=photo)
+    label.pack()
+
+    # Bind the click event to the on_click function
+    label.bind("<Button-1>", on_click)
+
+    # Run the tkinter main loop
+    root.mainloop()
+
 if __name__ == '__main__':
+    print("Let's start the process")
+    output_folder = "figures"
+    file_name = "img_to_translate.jpg" #png"
+    #take_screenshot_on_press_key(output_folder, file_name)
+    
     detect_text(args)
     text_blocks = crop_text_blocks()
     text_recognititon = recognition()
@@ -353,10 +464,13 @@ if __name__ == '__main__':
     draw_text_in_quadrangles(
         merged_text=merged_text,
         input_image_path="figures/img_to_translate.jpg",
-        output_image_path="result/img_to_translate_with_text.jpg"
+        output_image_path="end_result/img_to_translate_with_text.jpg"
     )
     
     # Clean up files after processing    
     delete_all_files_in_folder('result/blocks')
-    #delete_all_files_in_folder('result')
+    delete_all_files_in_folder('result')
     #delete_file('figures/img_to_translate.jpg')
+    
+    #show_translation(output_folder, file_name)
+    
