@@ -1,3 +1,4 @@
+import time
 from _1_detection import detect_text
 from _1_detection import str2bool
 from _2_crop_text_blocks import crop_text_blocks
@@ -316,6 +317,119 @@ def translate_all_siquences(merged_text):
         print(text_after_translation)
     return merged_text_with_translation
 
+def make_all_steps():
+    print("Let's start the process")
+        
+    if True:
+        detect_text(args)
+        text_blocks = crop_text_blocks()
+        text_recognititon = recognition()
+        
+        print("*" * 50)
+        print("Text Blocks:")  
+        print(text_blocks)
+        print("*" * 50)
+        print("Text Recognition:")
+        print(text_recognititon)
+        print("*" * 50)
+        
+        text_pairs, text_siquences_var, merged_text = text_siquences(text_blocks, text_recognititon)
+        print("Text Pairs:")
+        print(text_pairs)
+        print("*" * 50)
+        print("Text Sequences:")
+        print(text_siquences_var)
+        print("*" * 50)
+        print("Merged Text:")
+        print(merged_text)
+        print("*" * 50)
+        
+        merged_text = translate_all_siquences(merged_text)
+        
+        draw_quadrangles_on_image(
+            merged_text=merged_text,
+            input_image_path="figures/img_to_translate.jpg",
+            output_image_path="result/img_to_translate_features.jpg"
+        )
+        
+        create_mask_from_coordinates(
+            merged_text=merged_text,
+            input_image_path="figures/img_to_translate.jpg",
+            output_image_path="result/img_to_translate_for_text_erase.jpg"
+        )
+        
+        draw_text_in_quadrangles(
+            merged_text=merged_text,
+            input_image_path="figures/img_to_translate.jpg",
+            output_image_path="end_result/img_to_translate_with_text.jpg"
+        )
+        
+        # Clean up files after processing    
+        delete_all_files_in_folder('result/blocks')
+        delete_all_files_in_folder('result')
+        #delete_file('figures/img_to_translate.jpg')
+        
+        #show_translation(output_folder, file_name)
+
+def show_translation(output_folder, file_name):
+    
+    file_path = os.path.join(output_folder, file_name)
+    
+    def on_click(event):
+        # Ensure the image exists
+        if not os.path.exists(file_path):
+            print(f"Image {file_name} not found in {output_folder}")
+            exit()
+        
+        # Create a tkinter window
+        root = tk.Tk()
+        
+        # Delete the image file
+        os.remove(file_path)
+        print(f"Image {file_name} deleted from {output_folder}")
+    
+        # Close the tkinter window
+        root.destroy()
+        
+        # Simulate a click on the current application
+        pyautogui.click()
+    
+    active_window = gw.getActiveWindow()
+    if active_window:
+        # Get the window's position and size
+        left, top, right, bottom = active_window.left, active_window.top, active_window.right, active_window.bottom
+        width, height = right - left, bottom - top
+        
+        # Take a screenshot of the active window
+        #screenshot = pyautogui.screenshot(region=(left, top, width, height))
+
+        # Create a tkinter window
+        root = tk.Tk()
+        root.title("Image Viewer")
+
+        # Load the image
+        image = Image.open(file_path)
+        photo = ImageTk.PhotoImage(image)
+
+        # Set the geometry of the tkinter window to match the region
+        root.geometry(f"{width}x{height}+{left}+{top}")
+
+        # Make the window stay on top and remove the title bar
+        root.attributes("-topmost", True)
+        root.overrideredirect(True)
+
+        # Create a label to display the image
+        label = tk.Label(root, image=photo)
+        label.pack()
+
+        # Bind the click event to the on_click function
+        label.bind("<Button-1>", on_click)
+
+        # Run the tkinter main loop
+        root.mainloop()
+    else:
+        print("No active window found.")
+
 def take_screenshot_on_press_key(output_folder, file_name):
 
     # Ensure the folder exists
@@ -335,6 +449,10 @@ def take_screenshot_on_press_key(output_folder, file_name):
 
             screenshot.save(os.path.join(output_folder, file_name))
             print(f"Screenshot saved as {file_name} in {output_folder}")
+            
+            make_all_steps()
+            
+            show_translation("end_result", "img_to_translate_with_text.jpg")
         else:
             print("No active window found.")
 
@@ -377,100 +495,9 @@ def _take_screenshot_on_press_key(output_folder, file_name):
         print("Waiting for Ctrl+1 key combination...")
         listener.join()
 
-def show_translation(output_folder, file_name):
-    
-    file_path = os.path.join(output_folder, file_name)
-    
-    def on_click(event):
-        # Ensure the image exists
-        if not os.path.exists(file_path):
-            print(f"Image {file_name} not found in {output_folder}")
-            exit()
-        
-        # Create a tkinter window
-        root = tk.Tk()
-        
-        # Delete the image file
-        os.remove(file_path)
-        print(f"Image {file_name} deleted from {output_folder}")
-    
-        # Close the tkinter window
-        root.destroy()
-        
-        # Simulate a click on the current application
-        pyautogui.click()
-                
-    # Create a tkinter window
-    root = tk.Tk()
-    root.title("Image Viewer")
-
-    # Load the image
-    image = Image.open(file_path)
-    photo = ImageTk.PhotoImage(image)
-
-    # Create a label to display the image
-    label = tk.Label(root, image=photo)
-    label.pack()
-
-    # Bind the click event to the on_click function
-    label.bind("<Button-1>", on_click)
-
-    # Run the tkinter main loop
-    root.mainloop()
-
 if __name__ == '__main__':
-    print("Let's start the process")
+    
     output_folder = "figures"
     file_name = "img_to_translate.jpg" #png"
-    #take_screenshot_on_press_key(output_folder, file_name)
-    
-    detect_text(args)
-    text_blocks = crop_text_blocks()
-    text_recognititon = recognition()
-    
-    print("*" * 50)
-    print("Text Blocks:")  
-    print(text_blocks)
-    print("*" * 50)
-    print("Text Recognition:")
-    print(text_recognititon)
-    print("*" * 50)
-    
-    text_pairs, text_siquences, merged_text = text_siquences(text_blocks, text_recognititon)
-    print("Text Pairs:")
-    print(text_pairs)
-    print("*" * 50)
-    print("Text Sequences:")
-    print(text_siquences)
-    print("*" * 50)
-    print("Merged Text:")
-    print(merged_text)
-    print("*" * 50)
-    
-    merged_text = translate_all_siquences(merged_text)
-    
-    draw_quadrangles_on_image(
-        merged_text=merged_text,
-        input_image_path="figures/img_to_translate.jpg",
-        output_image_path="result/img_to_translate_features.jpg"
-    )
-    
-    create_mask_from_coordinates(
-        merged_text=merged_text,
-        input_image_path="figures/img_to_translate.jpg",
-        output_image_path="result/img_to_translate_for_text_erase.jpg"
-    )
-    
-    draw_text_in_quadrangles(
-        merged_text=merged_text,
-        input_image_path="figures/img_to_translate.jpg",
-        output_image_path="end_result/img_to_translate_with_text.jpg"
-    )
-    
-    # Clean up files after processing    
-    delete_all_files_in_folder('result/blocks')
-    delete_all_files_in_folder('result')
-    #delete_file('figures/img_to_translate.jpg')
-    
-    #show_translation(output_folder, file_name)
+    take_screenshot_on_press_key(output_folder, file_name)
     
