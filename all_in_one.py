@@ -390,9 +390,6 @@ def show_translation(output_folder, file_name):
     
         # Close the tkinter window
         root.destroy()
-        
-        # Simulate a click on the current application
-        pyautogui.click()
     
     active_window = gw.getActiveWindow()
     if active_window:
@@ -427,6 +424,9 @@ def show_translation(output_folder, file_name):
 
         # Run the tkinter main loop
         root.mainloop()
+        
+        # Simulate a click on the current application
+        print('pyautogui.click()')
     else:
         print("No active window found.")
 
