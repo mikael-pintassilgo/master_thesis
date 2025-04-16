@@ -371,25 +371,9 @@ def make_all_steps():
         
         #show_translation(output_folder, file_name)
 
-def show_translation(output_folder, file_name):
+def show_translation(output_folder = "end_result", file_name = "img_to_translate_with_text.jpg"):
     
     file_path = os.path.join(output_folder, file_name)
-    
-    def on_click(event):
-        # Ensure the image exists
-        if not os.path.exists(file_path):
-            print(f"Image {file_name} not found in {output_folder}")
-            exit()
-        
-        # Create a tkinter window
-        root = tk.Tk()
-        
-        # Delete the image file
-        os.remove(file_path)
-        print(f"Image {file_name} deleted from {output_folder}")
-    
-        # Close the tkinter window
-        root.destroy()
     
     active_window = gw.getActiveWindow()
     if active_window:
@@ -419,14 +403,21 @@ def show_translation(output_folder, file_name):
         label = tk.Label(root, image=photo)
         label.pack()
 
-        # Bind the click event to the on_click function
-        label.bind("<Button-1>", on_click)
+        # Define a function to close the window on click
+        def close_window(event):
+            root.destroy()
+
+        # Bind the click event to the close_window function
+        label.bind("<Button-1>", close_window)
 
         # Run the tkinter main loop
         root.mainloop()
         
         # Simulate a click on the current application
         print('pyautogui.click()')
+        
+        # Click at the current mouse position without moving the mouse
+        pyautogui.click()
     else:
         print("No active window found.")
 
@@ -458,43 +449,12 @@ def take_screenshot_on_press_key(output_folder, file_name):
 
     # Set up the event listener for the mouse scroll button
     keyboard.add_hotkey('ctrl+1', take_screenshot)
+    
+    keyboard.add_hotkey('ctrl+2', show_translation)
 
     print("Press the mouse scroll button to take a screenshot.")
     keyboard.wait('esc') # Keep the script running until 'esc' is pressed
-    
-def _take_screenshot_on_press_key(output_folder, file_name):
-    
-    def on_press(key):
-        try:
-            # Check if the combination Ctrl+Q is pressed
-            if key == pynput.keyboard.Key.ctrl_l or key == pynput.keyboard.Key.ctrl_r:
-                on_press.ctrl_pressed = True
-            elif key == pynput.keyboard.KeyCode.from_char('1') and on_press.ctrl_pressed:
-                # Take a screenshot
-                screenshot = pyautogui.screenshot()
-                # Ensure the output folder exists
-                os.makedirs(output_folder, exist_ok=True)
-                # Save the screenshot
-                screenshot_path = os.path.join(output_folder, file_name)
-                screenshot.save(screenshot_path)
-                print(f"Screenshot saved at {screenshot_path}")
-                return False  # Stop the listener after taking the screenshot
-        except AttributeError:
-            pass
-
-    def on_release(key):
-        # Reset the Ctrl key state when released
-        if key == pynput.keyboard.Key.ctrl_l or key == pynput.keyboard.Key.ctrl_r:
-            on_press.ctrl_pressed = False
-
-    # Initialize the Ctrl key state
-    on_press.ctrl_pressed = False
-
-    # Start listening for keyboard events
-    with pynput.keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
-        print("Waiting for Ctrl+1 key combination...")
-        listener.join()
-
+2
 if __name__ == '__main__':
     
     output_folder = "figures"
