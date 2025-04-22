@@ -366,7 +366,7 @@ def make_all_steps():
         
         # Clean up files after processing    
         delete_all_files_in_folder('result/blocks')
-        delete_all_files_in_folder('result')
+        #delete_all_files_in_folder('result')
         #delete_file('figures/img_to_translate.jpg')
         
         #show_translation(output_folder, file_name)
@@ -453,8 +453,8 @@ def take_screenshot_on_press_key(output_folder, file_name):
     keyboard.add_hotkey('ctrl+2', show_translation)
 
     print("Press the mouse scroll button to take a screenshot.")
-    keyboard.wait('esc') # Keep the script running until 'esc' is pressed
-2
+    keyboard.wait('ctrl+q') # Keep the script running until 'esc' is pressed
+
 if __name__ == '__main__':
     
     output_folder = "figures"

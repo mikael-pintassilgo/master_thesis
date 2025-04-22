@@ -10,6 +10,9 @@ Image for translation should have the name "img_to_translate.jpg" and be in fold
 python _1_detection.py --trained_model='models/craft_mlt_25k.pth' --test_folder='figures' --cuda=False
 
 
+Label Studio
+Formats: https://labelstud.io/guide/export
+
 ## CRAFT: Character-Region Awareness For Text detection
 Official Pytorch implementation of CRAFT text detector | [Paper](https://arxiv.org/abs/1904.01941) | [Pretrained Model](https://drive.google.com/open?id=1Jk4eGD7crsqCCg9C9VjCLkMN3ze8kutZ) | [Supplementary](https://youtu.be/HI8MzpY8KMI)
 
