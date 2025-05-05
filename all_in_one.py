@@ -1,9 +1,9 @@
-import time
+from transformers import pipeline     # Transformers pipeline
 from _1_detection import detect_text
 from _1_detection import str2bool
 from _2_crop_text_blocks import crop_text_blocks
 from _3_recognition import recognition
-from _4_translate import translate_text
+#from _4_translate import translate_text
 
 import argparse
 import os
@@ -307,17 +307,41 @@ def draw_text_in_quadrangles(merged_text, input_image_path, output_image_path):
     image.save(output_image_path)
     print(f"Image with text in quadrangles saved at {output_image_path}")
 
-def translate_all_siquences(merged_text):
+def translate_text(translator, text):
+    """
+    Translate the input text to Russian using the specified model.
+    
+    Args:
+        text (str): The text to translate.
+        
+    Returns:
+        list: A list of dictionaries containing the translation.
+    """
+    transletion = translator(text)
+    return transletion[0]['translation_text']
+
+def translate_all_siquences(merged_text, model_name = "Helsinki-NLP/opus-mt-en-ru"):
+    print(f'Model name befor is: {model_name}')
+    if (len(model_name) == 0):
+        model_name = "Helsinki-NLP/opus-mt-en-ru"
+    print(f'Model name after is: {model_name}')
+    model_checkpoint = model_name  # Model for Portuguese translation
+    translator = pipeline("translation", model=model_checkpoint)
+        
     merged_text_with_translation = []
     #merged_text_with_translation = merged_text.copy()
     for row in merged_text:
+        
         text_to_translate = row[1]  # Extract the text to translate
-        text_after_translation = translate_text(text_to_translate)  # Translate the text
+        
+        
+        text_after_translation = translate_text(translator, text_to_translate)  # Translate the text
+        
         merged_text_with_translation.append([row[0], row[1], text_after_translation])
         print(text_after_translation)
     return merged_text_with_translation
 
-def make_all_steps():
+def make_all_steps(model_name = "Helsinki-NLP/opus-mt-en-ru"):
     print("Let's start the process")
         
     if True:
@@ -344,7 +368,7 @@ def make_all_steps():
         print(merged_text)
         print("*" * 50)
         
-        merged_text = translate_all_siquences(merged_text)
+        merged_text = translate_all_siquences(merged_text, model_name=model_name)
         
         draw_quadrangles_on_image(
             merged_text=merged_text,
@@ -421,7 +445,7 @@ def show_translation(output_folder = "end_result", file_name = "img_to_translate
     else:
         print("No active window found.")
 
-def take_screenshot_on_press_key(output_folder, file_name):
+def take_screenshot_on_press_key(output_folder, file_name, model_name = "Helsinki-NLP/opus-mt-en-ru"):
 
     # Ensure the folder exists
     if not os.path.exists(output_folder):
@@ -441,7 +465,7 @@ def take_screenshot_on_press_key(output_folder, file_name):
             screenshot.save(os.path.join(output_folder, file_name))
             print(f"Screenshot saved as {file_name} in {output_folder}")
             
-            make_all_steps()
+            make_all_steps(model_name=model_name)
             
             show_translation("end_result", "img_to_translate_with_text.jpg")
         else:
@@ -453,7 +477,7 @@ def take_screenshot_on_press_key(output_folder, file_name):
     keyboard.add_hotkey('ctrl+2', show_translation)
 
     print("Press the mouse scroll button to take a screenshot.")
-    keyboard.wait('ctrl+q') # Keep the script running until 'esc' is pressed
+    keyboard.wait('ctrl+3') # Keep the script running until 'esc' is pressed
 
 if __name__ == '__main__':
     

@@ -1,0 +1,307 @@
+[
+    {
+        "id": 1,
+        "file_upload": "d140fe0e-Alex-Kidd-in-Miracle-World-DX06232021-090351-70209.jpg",
+        "data": {
+            "ocr": "/data/upload/1/d140fe0e-Alex-Kidd-in-Miracle-World-DX06232021-090351-70209.jpg"
+        },
+        "annotations": [
+            {
+                "id": 1,
+                "completed_by": 1,
+                "was_cancelled": false,
+                "ground_truth": false,
+                "created_at": "2025-04-19T11:38:50.906881Z",
+                "updated_at": "2025-04-19T11:38:50.906881Z",
+                "lead_time": 164.781,
+                "result_count": 8,
+                "unique_id": "6a6dea56-8770-40d2-bcdf-61a2e5002afd",
+                "task": 1,
+                "project": 1,
+                "updated_by": 1,
+                "result": [
+                    {
+                        "id": "SIci89g8LW",
+                        "type": "rectangle",
+                        "from_name": "bbox",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 61.28731343283581,
+                            "y": 22.38805970149254,
+                            "width": 33.687033582089576,
+                            "height": 9.14179104477612,
+                            "rotation": 0
+                        }
+                    },
+                    {
+                        "id": "SIci89g8LW",
+                        "type": "textarea",
+                        "from_name": "transcription",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 61.28731343283581,
+                            "y": 22.38805970149254,
+                            "width": 33.687033582089576,
+                            "height": 9.14179104477612,
+                            "rotation": 0,
+                            "text": ["load game"]
+                        }
+                    },
+                    {
+                        "id": "o0B2jPEO7g",
+                        "type": "rectangle",
+                        "from_name": "bbox",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 74.30037313432837,
+                            "y": 36.007462686567166,
+                            "width": 20.254197761194025,
+                            "height": 6.1567164179104505,
+                            "rotation": 0
+                        }
+                    },
+                    {
+                        "id": "o0B2jPEO7g",
+                        "type": "textarea",
+                        "from_name": "transcription",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 74.30037313432837,
+                            "y": 36.007462686567166,
+                            "width": 20.254197761194025,
+                            "height": 6.1567164179104505,
+                            "rotation": 0,
+                            "text": ["new game"]
+                        }
+                    },
+                    {
+                        "id": "9eoEpPN8ZT",
+                        "type": "rectangle",
+                        "from_name": "bbox",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 65.90485074626865,
+                            "y": 47.57462686567165,
+                            "width": 25.18656716417911,
+                            "height": 5.223880597014926,
+                            "rotation": 0
+                        }
+                    },
+                    {
+                        "id": "9eoEpPN8ZT",
+                        "type": "textarea",
+                        "from_name": "transcription",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 65.90485074626865,
+                            "y": 47.57462686567165,
+                            "width": 25.18656716417911,
+                            "height": 5.223880597014926,
+                            "rotation": 0,
+                            "text": ["classic mode"]
+                        }
+                    },
+                    {
+                        "id": "5AO5yDfM4T",
+                        "type": "rectangle",
+                        "from_name": "bbox",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 72.41138059701491,
+                            "y": 52.79850746268657,
+                            "width": 18.260261194029866,
+                            "height": 5.410447761194028,
+                            "rotation": 0
+                        }
+                    },
+                    {
+                        "id": "5AO5yDfM4T",
+                        "type": "textarea",
+                        "from_name": "transcription",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 72.41138059701491,
+                            "y": 52.79850746268657,
+                            "width": 18.260261194029866,
+                            "height": 5.410447761194028,
+                            "rotation": 0,
+                            "text": ["boss rush"]
+                        }
+                    },
+                    {
+                        "id": "Zk_t1_u84H",
+                        "type": "rectangle",
+                        "from_name": "bbox",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 79.65251865671642,
+                            "y": 62.5,
+                            "width": 15.006996268656707,
+                            "height": 5.223880597014926,
+                            "rotation": 0
+                        }
+                    },
+                    {
+                        "id": "Zk_t1_u84H",
+                        "type": "textarea",
+                        "from_name": "transcription",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 79.65251865671642,
+                            "y": 62.5,
+                            "width": 15.006996268656707,
+                            "height": 5.223880597014926,
+                            "rotation": 0,
+                            "text": ["options"]
+                        }
+                    },
+                    {
+                        "id": "v2dJ5pSGjO",
+                        "type": "rectangle",
+                        "from_name": "bbox",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 81.01679104477611,
+                            "y": 68.65671641791045,
+                            "width": 13.537779850746276,
+                            "height": 4.6641791044776255,
+                            "rotation": 0
+                        }
+                    },
+                    {
+                        "id": "v2dJ5pSGjO",
+                        "type": "textarea",
+                        "from_name": "transcription",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 81.01679104477611,
+                            "y": 68.65671641791045,
+                            "width": 13.537779850746276,
+                            "height": 4.6641791044776255,
+                            "rotation": 0,
+                            "text": ["credits"]
+                        }
+                    },
+                    {
+                        "id": "Mtlv2drdMI",
+                        "type": "rectangle",
+                        "from_name": "bbox",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 87.31343283582086,
+                            "y": 74.06716417910447,
+                            "width": 7.2411380597014965,
+                            "height": 4.664179104477599,
+                            "rotation": 0
+                        }
+                    },
+                    {
+                        "id": "Mtlv2drdMI",
+                        "type": "textarea",
+                        "from_name": "transcription",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 87.31343283582086,
+                            "y": 74.06716417910447,
+                            "width": 7.2411380597014965,
+                            "height": 4.664179104477599,
+                            "rotation": 0,
+                            "text": ["exit"]
+                        }
+                    },
+                    {
+                        "id": "ai_87_Fv9c",
+                        "type": "rectangle",
+                        "from_name": "bbox",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 85.84421641791045,
+                            "y": 88.61940298507463,
+                            "width": 8.81529850746273,
+                            "height": 4.477611940298501,
+                            "rotation": 0
+                        }
+                    },
+                    {
+                        "id": "ai_87_Fv9c",
+                        "type": "textarea",
+                        "from_name": "transcription",
+                        "to_name": "image",
+                        "origin": "manual",
+                        "original_width": 1920,
+                        "original_height": 1080,
+                        "image_rotation": 0,
+                        "value": {
+                            "x": 85.84421641791045,
+                            "y": 88.61940298507463,
+                            "width": 8.81529850746273,
+                            "height": 4.477611940298501,
+                            "rotation": 0,
+                            "text": ["Select"]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

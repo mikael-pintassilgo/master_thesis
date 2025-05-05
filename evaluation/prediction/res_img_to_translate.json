@@ -1,6 +1,11 @@
 [
   {
-    "annotations": [
+      "id": 1,
+      "file_upload": "img_to_translate.jpg",
+      "data": {
+          "ocr": "/data/upload/1/11f23ee2-img_to_translate.jpg"
+      },
+      "annotations": [
       {
         "result": [
           {
@@ -14,7 +19,7 @@
               "height": 2.9729729729729732,
               "rotation": 0
             },
-            "id": "952793294",
+            "id": "545766317",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -30,7 +35,7 @@
               "height": 2.9729729729729732,
               "rotation": 0
             },
-            "id": "455366170",
+            "id": "700409098",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -46,7 +51,7 @@
               "height": 2.7027027027027026,
               "rotation": 0
             },
-            "id": "951770190",
+            "id": "51453632",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -62,7 +67,7 @@
               "height": 2.5675675675675675,
               "rotation": 0
             },
-            "id": "442803021",
+            "id": "963339112",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -78,7 +83,7 @@
               "height": 2.4324324324324325,
               "rotation": 0
             },
-            "id": "674322000",
+            "id": "200288577",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -94,7 +99,7 @@
               "height": 1.891891891891892,
               "rotation": 0
             },
-            "id": "795947895",
+            "id": "633418234",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -110,7 +115,7 @@
               "height": 2.1621621621621623,
               "rotation": 0
             },
-            "id": "284949177",
+            "id": "154144904",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -126,7 +131,7 @@
               "height": 7.297297297297297,
               "rotation": 0
             },
-            "id": "783540877",
+            "id": "400614271",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -142,7 +147,7 @@
               "height": 7.162162162162162,
               "rotation": 0
             },
-            "id": "816520559",
+            "id": "795053110",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -158,7 +163,7 @@
               "height": 4.324324324324325,
               "rotation": 0
             },
-            "id": "108158506",
+            "id": "20475503",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -174,7 +179,7 @@
               "height": 4.324324324324325,
               "rotation": 0
             },
-            "id": "408881182",
+            "id": "471694019",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -190,7 +195,7 @@
               "height": 4.324324324324325,
               "rotation": 0
             },
-            "id": "227072292",
+            "id": "324351661",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -206,7 +211,7 @@
               "height": 4.054054054054054,
               "rotation": 0
             },
-            "id": "495252835",
+            "id": "364082136",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -222,7 +227,7 @@
               "height": 4.324324324324325,
               "rotation": 0
             },
-            "id": "101197853",
+            "id": "269907535",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -238,7 +243,7 @@
               "height": 2.9729729729729732,
               "rotation": 0
             },
-            "id": "340587432",
+            "id": "467089213",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -254,7 +259,7 @@
               "height": 4.324324324324325,
               "rotation": 0
             },
-            "id": "85370956",
+            "id": "77873857",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -270,7 +275,7 @@
               "height": 4.1891891891891895,
               "rotation": 0
             },
-            "id": "605539770",
+            "id": "573289622",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -286,7 +291,7 @@
               "height": 4.324324324324325,
               "rotation": 0
             },
-            "id": "908217102",
+            "id": "854470502",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -302,7 +307,7 @@
               "height": 4.594594594594595,
               "rotation": 0
             },
-            "id": "366052512",
+            "id": "430717575",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -318,7 +323,7 @@
               "height": 4.45945945945946,
               "rotation": 0
             },
-            "id": "571546790",
+            "id": "295959043",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -334,7 +339,7 @@
               "height": 2.1621621621621623,
               "rotation": 0
             },
-            "id": "923218844",
+            "id": "353724511",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -350,7 +355,7 @@
               "height": 4.1891891891891895,
               "rotation": 0
             },
-            "id": "670973509",
+            "id": "156337663",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -366,7 +371,7 @@
               "height": 10.0,
               "rotation": 0
             },
-            "id": "634195138",
+            "id": "325427082",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -382,7 +387,7 @@
               "height": 4.324324324324325,
               "rotation": 0
             },
-            "id": "620144060",
+            "id": "499926994",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -398,7 +403,7 @@
               "height": 10.135135135135135,
               "rotation": 0
             },
-            "id": "889132080",
+            "id": "947190450",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -414,7 +419,7 @@
               "height": 3.6486486486486487,
               "rotation": 0
             },
-            "id": "5839328",
+            "id": "31457426",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -430,7 +435,7 @@
               "height": 3.2432432432432434,
               "rotation": 0
             },
-            "id": "194066153",
+            "id": "174485512",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -446,7 +451,7 @@
               "height": 2.7027027027027026,
               "rotation": 0
             },
-            "id": "355114935",
+            "id": "383243155",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -462,7 +467,7 @@
               "height": 1.4864864864864866,
               "rotation": 0
             },
-            "id": "447907294",
+            "id": "658745483",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -478,7 +483,7 @@
               "height": 3.1081081081081083,
               "rotation": 0
             },
-            "id": "24805786",
+            "id": "700959844",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -494,7 +499,7 @@
               "height": 2.837837837837838,
               "rotation": 0
             },
-            "id": "7943701",
+            "id": "535385682",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -510,7 +515,7 @@
               "height": 2.837837837837838,
               "rotation": 0
             },
-            "id": "161887871",
+            "id": "538996577",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -526,7 +531,7 @@
               "height": 2.837837837837838,
               "rotation": 0
             },
-            "id": "201779920",
+            "id": "207815561",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -542,7 +547,7 @@
               "height": 2.837837837837838,
               "rotation": 0
             },
-            "id": "756249256",
+            "id": "884050831",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"
@@ -558,7 +563,7 @@
               "height": 1.7567567567567568,
               "rotation": 0
             },
-            "id": "599172764",
+            "id": "110618497",
             "from_name": "label",
             "to_name": "image",
             "type": "rectangle"

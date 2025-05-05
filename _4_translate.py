@@ -1,6 +1,6 @@
 from transformers import pipeline     # Transformers pipeline
 
-model_checkpoint = "Helsinki-NLP/opus-mt-en-ru"
+model_checkpoint = "Helsinki-NLP/opus-mt-en-de"  # Model for Portuguese translation
 translator = pipeline("translation", model=model_checkpoint)
 
 def translate_text(text):

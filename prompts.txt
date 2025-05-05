@@ -74,3 +74,14 @@ Draw quadrangular areas on this picture according to the coordinates, they shoul
 In these areas output the text from the second column of the array so that the text size corresponds to the size of the area.
 Place text in the center of the areas.
 Save the result in the results directory with the name "img_to_translate_with_text.jpg".
+
+
+Write code that will create a dialog box.
+This dialog box should have a title "Divertidos Games".
+Underneath it should be the inscription: "Application for translating text in games".
+Next, there should be a field with a drop-down list, which should list the 10 most popular languages, except English.
+After selecting a value in this field, the program should automatically fill in another text field, which is associated with it and located below it. The name of the model should appear in this field, as it is presented on the Hagging Face website.
+Next, there should be a field for the user to select a key combination.
+By default, it should indicate the combination "Ctrl + 1".
+At the very bottom, there should be a button that says "Run the translation program".
+After clicking on this button, the procedure "take_screenshot_on_press_key(output_folder, file_name)" from the module "all_in_one.py" should start executing.

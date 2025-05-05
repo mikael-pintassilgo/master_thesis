@@ -51,7 +51,7 @@ def convert_txt_to_labelstudio_json(txt_file, image_shape):
     return result
 
 results_dir = './result'
-predictions_dir = 'prediction'
+predictions_dir = 'evaluation/prediction'
 os.makedirs(predictions_dir, exist_ok=True)
 
 for txt_file in os.listdir(results_dir):
