@@ -20,7 +20,8 @@ LANGUAGE_MODELS = {
     "Russian": "Helsinki-NLP/opus-mt-en-ru",
     "Japanese": "Helsinki-NLP/opus-mt-en-ja",
     "Punjabi": "Helsinki-NLP/opus-mt-en-pa",
-    "German": "Helsinki-NLP/opus-mt-en-de"
+    "German": "Helsinki-NLP/opus-mt-en-de",
+    "Other...": ""
 }
 
 # Import the function from all_in_one.py
@@ -40,12 +41,15 @@ class TranslationDialog(QWidget):
         layout.addWidget(title_label)
 
         # Description
-        desc_label = QLabel("Application for translating text in games")
+        desc_label = QLabel("Application for translating text in games\nFrom English to other languages")
         desc_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(desc_label)
 
+        # Add extra space between title and description
+        layout.addSpacing(20)
+
         # Language selection
-        lang_label = QLabel("Select language:")
+        lang_label = QLabel("Translate into")
         layout.addWidget(lang_label)
 
         self.lang_combo = QComboBox()
@@ -53,33 +57,40 @@ class TranslationDialog(QWidget):
         self.lang_combo.currentTextChanged.connect(self.update_model_field)
         layout.addWidget(self.lang_combo)
 
+        # Add extra space between title and description
+        layout.addSpacing(20)
+
         # Model field
-        model_label = QLabel("Hugging Face model:")
+        model_label = QLabel("Model for translation from")
         layout.addWidget(model_label)
+        link_label = QLabel('<a href="https://huggingface.co/">huggingface.co</a>')
+        link_label.setOpenExternalLinks(True)
+        layout.addWidget(link_label)
 
         self.model_field = QLineEdit()
-        self.model_field.setReadOnly(True)
+        #self.model_field.setReadOnly(True)
         layout.addWidget(self.model_field)
         self.update_model_field(self.lang_combo.currentText())
 
+        # Add extra space between title and description
+        layout.addSpacing(20)
+
         # Key combination selection
-        key_label = QLabel("Select key combination:")
+        key_label = QLabel("Key combination to perform translation")
         layout.addWidget(key_label)
 
         self.key_edit = QKeySequenceEdit()
         self.key_edit.setKeySequence(QKeySequence("Ctrl+1"))
         layout.addWidget(self.key_edit)
 
+        # Add extra space between title and description
+        layout.addSpacing(20)
+
         # Run button
         self.run_button = QPushButton("Run the translation program")
         self.run_button.clicked.connect(self.run_translation_program)
         layout.addWidget(self.run_button)
-        
-        # Add label for "Press Esc to stop the program" (hidden by default)
-        self.esc_label = QLabel("Press 'Ctrl+3' to stop the program")
-        self.esc_label.setAlignment(Qt.AlignCenter)
-        layout.addWidget(self.esc_label)
-        
+                
         self.setLayout(layout)
 
     def update_model_field(self, language):
@@ -87,11 +98,29 @@ class TranslationDialog(QWidget):
         self.model_field.setText(model_name)
 
     def run_translation_program(self):
+        
+        # Add label for "Press Esc to stop the program" (hidden by default)
+        # Add label for "Press Ctrl+3 to stop the program" (shown only during run)
+        if not hasattr(self, 'esc_label'):
+            self.esc_label = QLabel("Press 'Ctrl+3' to stop the program")
+            self.esc_label.setAlignment(Qt.AlignCenter)
+            self.layout().addWidget(self.esc_label)
+        self.esc_label.show()
+        
+        self.run_button.hide()
+        self.repaint()
+        self.update()
+        
         output_folder = "figures"
         file_name = "img_to_translate.jpg" #png"
         model_name = self.model_field.text()
         print(f"model_name: {model_name}")
         take_screenshot_on_press_key(output_folder, file_name, model_name)
+        
+        self.run_button.show()
+        self.esc_label.hide()
+        self.repaint()
+        self.update()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

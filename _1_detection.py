@@ -51,10 +51,6 @@ parser.add_argument('--refiner_model', default='weights/craft_refiner_CTW1500.pt
 
 args = parser.parse_args()
 
-
-""" For test images in a folder """
-image_list, _, _ = file_utils.get_files(args.test_folder)
-
 result_folder = './result/'
 if not os.path.isdir(result_folder):
     os.mkdir(result_folder)
@@ -145,6 +141,9 @@ def detect_text(args):
         args.poly = True
 
     t = time.time()
+
+    """ For test images in a folder """
+    image_list, _, _ = file_utils.get_files(args.test_folder)
 
     # load data
     for k, image_path in enumerate(image_list):
