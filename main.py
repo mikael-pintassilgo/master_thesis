@@ -15,7 +15,7 @@ LANGUAGE_MODELS = {
     "Chinese": "Helsinki-NLP/opus-mt-en-zh",
     "Hindi": "Helsinki-NLP/opus-mt-en-hi",
     "Arabic": "Helsinki-NLP/opus-mt-en-ar",
-    "Portuguese": "Helsinki-NLP/opus-mt-en-pt",
+    "Portuguese": "unicamp-dl/translation-en-pt-t5",
     "Bengali": "Helsinki-NLP/opus-mt-en-bn",
     "Russian": "Helsinki-NLP/opus-mt-en-ru",
     "Japanese": "Helsinki-NLP/opus-mt-en-ja",

@@ -1,4 +1,4 @@
-from transformers import pipeline     # Transformers pipeline
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 from _1_detection import detect_text
 from _1_detection import str2bool
 from _2_crop_text_blocks import crop_text_blocks
@@ -326,7 +326,14 @@ def translate_all_siquences(merged_text, model_name = "Helsinki-NLP/opus-mt-en-r
         model_name = "Helsinki-NLP/opus-mt-en-ru"
     print(f'Model name after is: {model_name}')
     model_checkpoint = model_name  # Model for Portuguese translation
-    translator = pipeline("translation", model=model_checkpoint)
+    
+    if (model_checkpoint == "unicamp-dl/translation-en-pt-t5"):
+        tokenizer = AutoTokenizer.from_pretrained("unicamp-dl/translation-en-pt-t5")
+        model = AutoModelForSeq2SeqLM.from_pretrained("unicamp-dl/translation-en-pt-t5")
+
+        translator = pipeline('text2text-generation', model=model, tokenizer=tokenizer)
+    else:
+        translator = pipeline("translation", model=model_checkpoint)
         
     merged_text_with_translation = []
     #merged_text_with_translation = merged_text.copy()

@@ -1,59 +1,33 @@
-import os
-import time
-import tkinter as tk
-from PIL import Image, ImageTk
-import pygetwindow as gw
-import pyautogui
 
-def show_translation(output_folder, file_name):
-    
-    file_path = os.path.join(output_folder, file_name)
-    
-    active_window = gw.getActiveWindow()
-    if active_window:
-        # Get the window's position and size
-        left, top, right, bottom = active_window.left, active_window.top, active_window.right, active_window.bottom
-        width, height = right - left, bottom - top
-        
-        # Take a screenshot of the active window
-        #screenshot = pyautogui.screenshot(region=(left, top, width, height))
+""" 
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
 
-        # Create a tkinter window
-        root = tk.Tk()
-        root.title("Image Viewer")
+# Load the tokenizer and model
+tokenizer = AutoTokenizer.from_pretrained("unicamp-dl/translation-en-pt-t5")
+model = AutoModelForSeq2SeqLM.from_pretrained("unicamp-dl/translation-en-pt-t5")
 
-        # Load the image
-        image = Image.open(file_path)
-        photo = ImageTk.PhotoImage(image)
+# Create the translation pipeline
+translation_pipeline = pipeline("translation", model=model, tokenizer=tokenizer)
 
-        # Set the geometry of the tkinter window to match the region
-        root.geometry(f"{width}x{height}+{left}+{top}")
+# Example translation
+result = translation_pipeline("I like to eat rice.", src_lang="en", tgt_lang="pt")
+print(result)
+"""
 
-        # Make the window stay on top and remove the title bar
-        root.attributes("-topmost", True)
-        root.overrideredirect(True)
+from transformers import M2M100ForConditionalGeneration, pipeline
+from transformers import M2M100ForConditionalGeneration
+from tokenization_small100 import SMALL100Tokenizer
 
-        # Create a label to display the image
-        label = tk.Label(root, image=photo)
-        label.pack()
+# Load the tokenizer and model
+model = M2M100ForConditionalGeneration.from_pretrained("alirezamsh/small100")
+tokenizer = SMALL100Tokenizer.from_pretrained("alirezamsh/small100")
 
-        # Define a function to close the window on click
-        def close_window(event):
-            root.destroy()
+# Create the translation pipeline
+translation_pipeline = pipeline("translation", model=model, tokenizer=tokenizer)
 
-        # Bind the click event to the close_window function
-        label.bind("<Button-1>", close_window)
 
-        # Run the tkinter main loop
-        root.mainloop()
-        
-        # Simulate a click on the current application
-        print('pyautogui.click()')
-        
-        # Click at the current mouse position without moving the mouse
-        pyautogui.click()
-    else:
-        print("No active window found.")
 
-time.sleep(3)  # Wait for the screenshot to be taken
-show_translation("end_result", "img_to_translate_with_text.jpg")
+tokenizer.tgt_lang = "pt"
+encoded_en = tokenizer("I like to eat rice.", return_tensors="pt")
+generated_tokens = model.generate(**encoded_en)
+tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
