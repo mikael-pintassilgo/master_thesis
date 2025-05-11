@@ -15,7 +15,7 @@ LANGUAGE_MODELS = {
     "Chinese": "Helsinki-NLP/opus-mt-en-zh",
     "Hindi": "Helsinki-NLP/opus-mt-en-hi",
     "Arabic": "Helsinki-NLP/opus-mt-en-ar",
-    "Portuguese": "unicamp-dl/translation-en-pt-t5",
+    "Portuguese": "facebook/nllb-200-distilled-600M",
     "Bengali": "Helsinki-NLP/opus-mt-en-bn",
     "Russian": "Helsinki-NLP/opus-mt-en-ru",
     "Japanese": "Helsinki-NLP/opus-mt-en-ja",
@@ -84,8 +84,19 @@ class TranslationDialog(QWidget):
         layout.addWidget(self.key_edit)
 
         # Add extra space between title and description
-        layout.addSpacing(20)
+        layout.addSpacing(8)
+        
+        # Key combination selection
+        key_label = QLabel("Key combination to view previous translation")
+        layout.addWidget(key_label)
 
+        self.key_edit = QKeySequenceEdit()
+        self.key_edit.setKeySequence(QKeySequence("Ctrl+2"))
+        layout.addWidget(self.key_edit)
+
+        # Add extra space between title and description
+        layout.addSpacing(20)
+        
         # Run button
         self.run_button = QPushButton("Run the translation program")
         self.run_button.clicked.connect(self.run_translation_program)

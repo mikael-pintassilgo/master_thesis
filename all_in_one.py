@@ -16,6 +16,7 @@ import pynput
 import keyboard
 import pygetwindow as gw
 import tkinter as tk
+import ctypes
 
 parser = argparse.ArgumentParser(description='CRAFT Text Detection')
 parser.add_argument('--trained_model', default='models/craft_mlt_25k.pth', type=str, help='pretrained model')
@@ -327,11 +328,8 @@ def translate_all_siquences(merged_text, model_name = "Helsinki-NLP/opus-mt-en-r
     print(f'Model name after is: {model_name}')
     model_checkpoint = model_name  # Model for Portuguese translation
     
-    if (model_checkpoint == "unicamp-dl/translation-en-pt-t5"):
-        tokenizer = AutoTokenizer.from_pretrained("unicamp-dl/translation-en-pt-t5")
-        model = AutoModelForSeq2SeqLM.from_pretrained("unicamp-dl/translation-en-pt-t5")
-
-        translator = pipeline('text2text-generation', model=model, tokenizer=tokenizer)
+    if (model_checkpoint == "facebook/nllb-200-distilled-600M"):
+        translator = pipeline("translation", model=model_checkpoint)
     else:
         translator = pipeline("translation", model=model_checkpoint)
         
@@ -350,6 +348,17 @@ def translate_all_siquences(merged_text, model_name = "Helsinki-NLP/opus-mt-en-r
 
 def make_all_steps(model_name = "Helsinki-NLP/opus-mt-en-ru"):
     print("Let's start the process")
+    
+    # Set the mouse pointer to the "busy" (wait) cursor
+    """
+    try:
+        ctypes.windll.user32.LoadCursorW.restype = ctypes.c_void_p
+        IDC_WAIT = 32514  # Standard wait cursor
+        hCursor = ctypes.windll.user32.LoadCursorW(0, IDC_WAIT)
+        ctypes.windll.user32.SetSystemCursor(hCursor, 32512)  # 32512 = OCR_NORMAL
+    except Exception as e:
+        print(f"Could not set busy cursor: {e}")
+    """
         
     if True:
         detect_text(args)
@@ -401,6 +410,17 @@ def make_all_steps(model_name = "Helsinki-NLP/opus-mt-en-ru"):
         #delete_file('figures/img_to_translate.jpg')
         
         #show_translation(output_folder, file_name)
+        
+    # Return the mouse pointer to the normal view
+    """
+    try:
+        ctypes.windll.user32.LoadCursorW.restype = ctypes.c_void_p
+        IDC_ARROW = 32512  # Standard arrow cursor
+        hCursor = ctypes.windll.user32.LoadCursorW(0, IDC_ARROW)
+        ctypes.windll.user32.SetSystemCursor(hCursor, 32512)  # 32512 = OCR_NORMAL
+    except Exception as e:
+        print(f"Could not reset cursor: {e}")
+    """
 
 def show_translation(output_folder = "end_result", file_name = "img_to_translate_with_text.jpg"):
     
