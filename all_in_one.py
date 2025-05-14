@@ -361,6 +361,10 @@ def make_all_steps(model_name = "Helsinki-NLP/opus-mt-en-ru"):
     """
         
     if True:
+        # Clean up files before processing    
+        delete_all_files_in_folder('result/blocks')
+        delete_all_files_in_folder('result')
+        
         detect_text(args)
         text_blocks = crop_text_blocks()
         text_recognititon = recognition()
@@ -405,8 +409,6 @@ def make_all_steps(model_name = "Helsinki-NLP/opus-mt-en-ru"):
         )
         
         # Clean up files after processing    
-        delete_all_files_in_folder('result/blocks')
-        #delete_all_files_in_folder('result')
         #delete_file('figures/img_to_translate.jpg')
         
         #show_translation(output_folder, file_name)
@@ -472,6 +474,7 @@ def show_translation(output_folder = "end_result", file_name = "img_to_translate
     else:
         print("No active window found.")
 
+
 def take_screenshot_on_press_key(output_folder, file_name, model_name = "Helsinki-NLP/opus-mt-en-ru"):
 
     # Ensure the folder exists
@@ -492,8 +495,38 @@ def take_screenshot_on_press_key(output_folder, file_name, model_name = "Helsink
             screenshot.save(os.path.join(output_folder, file_name))
             print(f"Screenshot saved as {file_name} in {output_folder}")
             
-            make_all_steps(model_name=model_name)
+            # Show a message that translation is in progress
+            progress_root = tk.Tk()
+            progress_root.title("Translation")
             
+            # Center the window in the middle of the active app
+            win_width = 400
+            win_height = 80
+            x = active_window.left + (active_window.width - win_width) // 2
+            y = active_window.top + (active_window.height - win_height) // 2
+            progress_root.geometry(f"{win_width}x{win_height}+{x}+{y}")
+            
+            progress_label = tk.Label(progress_root, text="Translation in progress...", font=("Arial", 16))
+            progress_label.pack(padx=20, pady=20)
+            # Center the label in the window
+            progress_label.place(relx=0.5, rely=0.5, anchor='center')
+
+            # Make the window stay on top and remove the title bar
+            progress_root.attributes("-topmost", True)
+            progress_root.overrideredirect(True)
+        
+            progress_root.update()
+            
+            # Run the translation process
+            make_all_steps(model_name=model_name)
+
+            # Hide the progress message
+            progress_root.destroy()
+            # Minimize and then restore the active window to bring it to the foreground
+            #active_window.minimize()
+            #active_window.restore()
+            active_window.activate()
+
             show_translation("end_result", "img_to_translate_with_text.jpg")
         else:
             print("No active window found.")
