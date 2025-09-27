@@ -1,119 +1,50 @@
-# Mike Shchegolkov
-py -3 -m venv .venv .venv/Scripts/activate
-pip install torch==2.4.1 torchvision==0.19.1 --index-url https://download.pytorch.org/whl/cpu
-pip install opencv-python
-pip install scikit-image
-pip install scipy
+This repository contains materials for a master's thesis on the topic "Automatic In-Place Text Detection and Translation
+in Video Games".
+Author: Mikhail Shchegolkov
+Year: 2025
+Institute: Nova IMS, Lisbon, Portugal
+Supervisor: José Américo Alves Sustelo Rio, PhD, NOVA Information Management School
 
-Image for translation should have the name "img_to_translate.jpg" and be in folder "figures".
+The program was tested on a laptop with the following specifications:
+CPU	AMD Ryzen 5 5500U with Radeon Graphics 2.10 GHz
+RAM	8,00 GB (available: 5,85 GB)
+System Type	64-bit operating system, x64 processor
+Operating System	Windows 11 Pro
+Video Card	Integrated AMD Radeon Graphics
 
-python _1_detection.py --trained_model='models/craft_mlt_25k.pth' --test_folder='figures' --cuda=False
+To run the program:
+1. Clone this repository.
+2. Install the dependencies from the requirements.txt file.
+3. Run the command "python main.py".
 
+In this project I used the following resources:
 
-Label Studio
-Formats: https://labelstud.io/guide/export
+Images from games
+https://gameuidatabase.com/
 
-## CRAFT: Character-Region Awareness For Text detection
-Official Pytorch implementation of CRAFT text detector | [Paper](https://arxiv.org/abs/1904.01941) | [Pretrained Model](https://drive.google.com/open?id=1Jk4eGD7crsqCCg9C9VjCLkMN3ze8kutZ) | [Supplementary](https://youtu.be/HI8MzpY8KMI)
+For text detection
+https://github.com/clovaai/deep-text-recognition-benchmark
 
-**[Youngmin Baek](mailto:youngmin.baek@navercorp.com), Bado Lee, Dongyoon Han, Sangdoo Yun, Hwalsuk Lee.**
- 
-Clova AI Research, NAVER Corp.
+For text recognition
+https://github.com/byeonghu-na/MATRN
 
-### Sample Results
+For text erasing
+https://github.com/Onkarsus13/Diff_SceneTextEraser
 
-### Overview
-PyTorch implementation for CRAFT text detector that effectively detect text area by exploring each character region and affinity between characters. The bounding box of texts are obtained by simply finding minimum bounding rectangles on binary map after thresholding character region and affinity scores. 
-
-<img width="1000" alt="teaser" src="./figures/craft_example.gif">
-
-## Updates
-**13 Jun, 2019**: Initial update
-**20 Jul, 2019**: Added post-processing for polygon result
-**28 Sep, 2019**: Added the trained model on IC15 and the link refiner
-
-
-## Getting started
-### Install dependencies
-#### Requirements
-- PyTorch>=0.4.1
-- torchvision>=0.2.1
-- opencv-python>=3.4.2
-- check requiremtns.txt
-```
-pip install -r requirements.txt
-```
-
-### Training
-The code for training is not included in this repository, and we cannot release the full training code for IP reason.
-
-
-### Test instruction using pretrained model
-- Download the trained models
- 
- *Model name* | *Used datasets* | *Languages* | *Purpose* | *Model Link* |
- | :--- | :--- | :--- | :--- | :--- |
-General | SynthText, IC13, IC17 | Eng + MLT | For general purpose | [Click](https://drive.google.com/open?id=1Jk4eGD7crsqCCg9C9VjCLkMN3ze8kutZ)
-IC15 | SynthText, IC15 | Eng | For IC15 only | [Click](https://drive.google.com/open?id=1i2R7UIUqmkUtF0jv_3MXTqmQ_9wuAnLf)
-LinkRefiner | CTW1500 | - | Used with the General Model | [Click](https://drive.google.com/open?id=1XSaFwBkOaFOdtk4Ane3DFyJGPRw6v5bO)
-
-* Run with pretrained model
-``` (with python 3.7)
-python test.py --trained_model=[weightfile] --test_folder=[folder path to test images]
-python test.py --trained_model='models/craft_mlt_25k.pth' --test_folder='figures' --cuda=False
-```
-
-The result image and socre maps will be saved to `./result` by default.
-
-### Arguments
-* `--trained_model`: pretrained model
-* `--text_threshold`: text confidence threshold
-* `--low_text`: text low-bound score
-* `--link_threshold`: link confidence threshold
-* `--cuda`: use cuda for inference (default:True)
-* `--canvas_size`: max image size for inference
-* `--mag_ratio`: image magnification ratio
-* `--poly`: enable polygon type result
-* `--show_time`: show processing time
-* `--test_folder`: folder path to input images
-* `--refine`: use link refiner for sentense-level dataset
-* `--refiner_model`: pretrained refiner model
-
-
-## Links
-- WebDemo : https://demo.ocr.clova.ai/
-- Repo of recognition : https://github.com/clovaai/deep-text-recognition-benchmark
-
-## Citation
-```
-@inproceedings{baek2019character,
-  title={Character Region Awareness for Text Detection},
-  author={Baek, Youngmin and Lee, Bado and Han, Dongyoon and Yun, Sangdoo and Lee, Hwalsuk},
-  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
-  pages={9365--9374},
-  year={2019}
-}
-```
-
-## License
-```
-Copyright (c) 2019-present NAVER Corp.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-```
+BIBLIOGRAPHICAL REFERENCES
+- Afzali, K., & Zahiri, M. (2022). A netnographic exploration of Iranian videogame players translation needs: the case of in-game texts. The Translator, 28(1), 74–94. https://doi.org/10.1080/13556509.2021.1880536
+- Al-Batineh, M., & Alawneh, R. (2022). Current trends in localizing video games into Arabic: localization levels and gamers’ preferences. Perspectives: Studies in Translation Theory and Practice, 30(2), 323–342. https://doi.org/10.1080/0907676X.2021.1926520
+- Baek, Y., Lee, B., Han, D., Yun, S., & Lee, H. (2019). Character Region Awareness for Text Detection. https://doi.org/10.1109/CVPR.2019.00959
+Bastien, J. M. C. (2010). Usability testing: a review of some methodological and technical aspects of the method. International Journal of Medical Informatics, 79(4). https://doi.org/10.1016/j.ijmedinf.2008.12.004
+- Byeonghu Na, Yoonsik Kim, & Sungrae Park. (2022). Multi-modal Text Recognition Networks: Interactive Enhancements Between Visual and Semantic Features. Computer Vision – ECCV 2022, 446–463. https://doi.org/https://doi.org/10.1007/978-3-031-19815-1_26
+- Karapetyan, M. (2023). Teaching Languages in the Digital Age: Incorporating Machine Translation. Translation Studies: Theory and Practice, 3(2 (6)), 58–69. https://doi.org/10.46991/tstp/2023.3.2.058
+- Long, S., Guan, Y., Bian, K., & Yao, C. (2020). A New Perspective for Flexible Feature Gathering in Scene Text Recognition Via Character Anchor Pooling. IEEE. https://doi.org/10.1109/ICASSP40776.2020.9054135
+- Naiemi, F., Ghods, V., & Khalesi, H. (2022). Scene text detection and recognition: a survey. Multimedia Tools and Applications, 81(14), 20255–20290. https://doi.org/10.1007/s11042-022-12693-7
+- Rainarli, E., Suprapto, & Wahyono. (2021). A decade: Review of scene text detection methods. In Computer Science Review (Vol. 42). Elsevier Ireland Ltd. https://doi.org/10.1016/j.cosrev.2021.100434
+- Santoso, J., Simon, C., & Williem. (2024). On Manipulating Scene Text in the Wild with Diffusion Models. Proceedings - 2024 IEEE Winter Conference on Applications of Computer Vision, WACV 2024, 5190–5199. https://doi.org/10.1109/WACV57701.2024.00512
+- Susladkar, O. (2023). Diff-Scene Text Eraser. https://github.com/Onkarsus13/Diff_SceneTextEraser
+- Vaidya, S., Sharma, A. K., Gatti, P., & Mishra, A. (2023). Show Me the World in My Language: Establishing the First Baseline for Scene-Text to Scene-Text Translation. https://doi.org/https://doi.org/10.48550/arXiv.2308.03024
+- Volley Pals. (2023, May 19). NAISU. https://store.epicgames.com/ru/p/volley-pals-0120b4
+- Yan, H., & Xu, X. (2020). End-to-end video subtitle recognition via a deep Residual Neural Network. Pattern Recognition Letters, 131, 368–375. https://doi.org/10.1016/J.PATREC.2020.01.019
+- Yang, F., Su, T., Zhou, X., Di, D., Wang, Z., & Li, S. (2023). Self-Supervised Cross-Language Scene Text Editing. MM 2023 - Proceedings of the 31st ACM International Conference on Multimedia, 4546–4554. https://doi.org/10.1145/3581783.3612174
+- Zhang, Y., Nie, S., Liu, W., Xu, X., Zhang, D., & Shen, H. T. (2019). Sequence-to-Sequence Domain Adaptation Network for Robust Text Image Recognition. https://doi.org/10.1109/CVPR.2019.00285
