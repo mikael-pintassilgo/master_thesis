@@ -5,6 +5,8 @@ Year: 2025
 Institute: Nova IMS, Lisbon, Portugal
 Supervisor: José Américo Alves Sustelo Rio, PhD, NOVA Information Management School
 
+Video presentation: https://youtu.be/3f0f0A0aT5Q
+
 The program was tested on a laptop with the following specifications:
 CPU	AMD Ryzen 5 5500U with Radeon Graphics 2.10 GHz
 RAM	8,00 GB (available: 5,85 GB)
